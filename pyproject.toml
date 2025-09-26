@@ -1,0 +1,136 @@
+[build-system]
+requires = ["setuptools>=45", "wheel", "setuptools_scm[toml]>=6.2"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "devkit-zero"
+version = "1.0.0"
+description = "零依赖开发者工具箱 - 轻量级、功能强大的开发者工具集"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "DevKit-Zero Team", email = "team@devkit-zero.com"},
+]
+maintainers = [
+    {name = "DevKit-Zero Team", email = "team@devkit-zero.com"},
+]
+keywords = [
+    "devtools", "developer-tools", "formatter", "utilities", 
+    "zero-dependency", "cli", "gui"
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.7",
+    "Programming Language :: Python :: 3.8", 
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Topic :: Software Development :: Tools",
+    "Topic :: Utilities",
+]
+requires-python = ">=3.7"
+dependencies = []
+
+[project.optional-dependencies]
+gui = []  # tkinter 通常已包含在 Python 中
+web = ["flask>=2.0.0"]
+dev = [
+    "pytest>=6.0",
+    "pytest-cov>=2.12",
+    "black>=21.0",
+    "flake8>=3.8",
+    "mypy>=0.910",
+    "twine>=3.4",
+]
+
+[project.urls]
+Homepage = "https://github.com/devkit-zero/devkit-zero"
+Documentation = "https://devkit-zero.readthedocs.io/"
+Repository = "https://github.com/devkit-zero/devkit-zero.git"
+"Bug Tracker" = "https://github.com/devkit-zero/devkit-zero/issues"
+Changelog = "https://github.com/devkit-zero/devkit-zero/blob/main/CHANGELOG.md"
+
+[project.scripts]
+devkit-zero = "devkit_zero.cli:main"
+devkit = "devkit_zero.cli:main"
+
+[project.gui-scripts]
+devkit-zero-gui = "devkit_zero.gui_main:main"
+
+[tool.setuptools]
+packages = ["devkit_zero", "devkit_zero.tools", "devkit_zero.ui", "devkit_zero.utils"]
+
+[tool.setuptools.package-data]
+devkit_zero = ["assets/*", "templates/*", "static/*"]
+
+[tool.black]
+line-length = 88
+target-version = ['py37', 'py38', 'py39', 'py310', 'py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  # directories
+  \.eggs
+  | \.git
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = ["E203", "W503"]
+exclude = [".git", "__pycache__", "build", "dist", ".eggs", "*.egg"]
+
+[tool.mypy]
+python_version = "3.7"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = "-ra -q --strict-markers --strict-config"
+testpaths = ["tests"]
+python_files = "test_*.py"
+python_classes = "Test*"
+python_functions = "test_*"
+
+[tool.coverage.run]
+source = ["devkit_zero"]
+omit = [
+    "*/tests/*",
+    "*/test_*",
+    "setup.py",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "if self.debug:",
+    "if settings.DEBUG",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if 0:",
+    "if __name__ == .__main__.:",
+    "class .*\\bProtocol\\):",
+    "@(abc\\.)?abstractmethod",
+]

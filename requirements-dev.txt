@@ -1,0 +1,14 @@
+# DevKit-Zero 开发依赖
+# 核心包仅依赖 Python 标准库，保持零依赖特性
+
+# 开发依赖
+pytest>=6.0           # 测试框架
+pytest-cov>=2.12      # 测试覆盖率
+black>=21.0           # 代码格式化
+flake8>=3.8           # 代码检查
+mypy>=0.910           # 类型检查
+twine>=3.4            # PyPI 上传
+
+# 可选依赖
+flask>=2.0.0          # Web 界面支持
+pyinstaller>=4.0      # 打包工具

@@ -1,0 +1,5 @@
+"""版本信息"""
+__version__ = "1.0.0"
+__author__ = "DevKit-Zero Team"
+__email__ = "team@devkit-zero.com"
+__description__ = "零依赖开发者工具箱"
